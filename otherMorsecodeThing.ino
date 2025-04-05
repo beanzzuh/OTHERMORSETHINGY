@@ -21,6 +21,7 @@
 
       try to stor time? Also DAD is max dit and Dah in letter. fighure out hw to stare inputs from button until 7 time untis pass.  look into how to print milis
       there is a light to make memtromnome 
+      fix THE PRINTT UHGH
   */
   const int dit = 1;
   const int dah = 2;
@@ -37,7 +38,7 @@
   int pressed = 0; 
   int *dad = DAD;
   int DADindex = 0;
-  int timeunits = 1000;
+  int timeunits = 900;
   int bluePin = 10;
   // dad = DAD;
   static int aarray[4] = {1,2,0,0};
@@ -75,7 +76,7 @@
 void setup() {
   // put your setup code here, to run once:
   
-  lcd.begin(16,2);
+  lcd.begin(16,1);
   pinMode(buttonPin, INPUT);
   Serial.begin(9600);
   pinMode(bluePin,OUTPUT);
@@ -99,6 +100,7 @@ void loop() {
           if (lowC == 5){
             //next word 
           }
+            
            
      
     
@@ -126,13 +128,20 @@ void loop() {
           DAD[DADindex] = 2;
           DADindex++;
         }
-        if(DADindex > 3){
+        if(DADindex > 4){
           DADindex = 0;
           for(int i =0; i<4;i++){
       DAD[i] = 0;
     }
         }
      }
+     if(lowC == 7){
+        lcd.clear();
+        for(int i =0; i<4;i++){
+      DAD[i] = 0;
+    }
+    DADindex = 0;
+            }
      
       
     highC = 0;
@@ -149,7 +158,6 @@ void loop() {
 
   }
   delay(timeunits-5);
-  translator();
   digitalWrite(bluePin,HIGH);
   delay(5);
   digitalWrite(bluePin,LOW);
@@ -537,8 +545,6 @@ void translator(){
     DADindex = 0;
     return;
   }
-
-  // Repeat the above pattern for letters i through z
 
   match = 1;
   for(int i = 0; i < 4; i++){
