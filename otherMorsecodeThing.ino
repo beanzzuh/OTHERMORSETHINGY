@@ -38,8 +38,9 @@
   int pressed = 0; 
   int *dad = DAD;
   int DADindex = 0;
-  int timeunits = 900;
+  int timeunits = 1000;
   int bluePin = 10;
+  int lettersP =0;
   // dad = DAD;
   static int aarray[4] = {1,2,0,0};
   static int barray[4] = {2,1,1,1};
@@ -76,7 +77,7 @@
 void setup() {
   // put your setup code here, to run once:
   
-  lcd.begin(16,1);
+  lcd.begin(16,2);
   pinMode(buttonPin, INPUT);
   Serial.begin(9600);
   pinMode(bluePin,OUTPUT);
@@ -129,18 +130,13 @@ void loop() {
           DADindex++;
         }
         if(DADindex > 4){
-          DADindex = 0;
-          for(int i =0; i<4;i++){
-      DAD[i] = 0;
-    }
+          getMilk();
         }
      }
      if(lowC == 7){
-        lcd.clear();
-        for(int i =0; i<4;i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
+        lcd.clear(); 
+        lettersP =0; 
+        getMilk();
             }
      
       
@@ -148,13 +144,7 @@ void loop() {
     
   }
  if (buttonPushed == HIGH){
-    
-    
-    
-     // Serial.print(DAD[DADindex]);
-    
-    //dad++;
-    //lcd.print("HAI");
+
 
   }
   delay(timeunits-5);
@@ -165,400 +155,71 @@ void loop() {
  
   for(int i = 0;i <4; i++){
     Serial.print(DAD[i]);
+
     
   }
   Serial.println();
 
 }
+void getMilk(){
+  for(int i =0; i<4;i++){
+      DAD[i] = 0;
+    }
+    DADindex = 0;
+}
+
+void displayDAD(){
+  lcd.setCursor(0,1);
+  
+}
+void printLetter(int num){
+  switch (num) {
+    case 0: lcd.print("a"); break;
+    case 1: lcd.print("b"); break;
+    case 2: lcd.print("c"); break;
+    case 3: lcd.print("d"); break;
+    case 4: lcd.print("e"); break;
+    case 5: lcd.print("f"); break;
+    case 6: lcd.print("g"); break;
+    case 7: lcd.print("h"); break;
+    case 8: lcd.print("i"); break;
+    case 9: lcd.print("j"); break;
+    case 10: lcd.print("k"); break;
+    case 11: lcd.print("l"); break;
+    case 12: lcd.print("m"); break;
+    case 13: lcd.print("n"); break;
+    case 14: lcd.print("o"); break;
+    case 15: lcd.print("p"); break;
+    case 16: lcd.print("q"); break;
+    case 17: lcd.print("r"); break;
+    case 18: lcd.print("s"); break;
+    case 19: lcd.print("t"); break;
+    case 20: lcd.print("u"); break;
+    case 21: lcd.print("v"); break;
+    case 22: lcd.print("w"); break;
+    case 23: lcd.print("x"); break;
+    case 24: lcd.print("y"); break;
+    case 25: lcd.print("z"); break;
+  }
+  lettersP++;
+}
 void translator(){
   //go through dad and make letter
+  int* allLetters[26] = {aarray,barray,carray,darray,earray,farray,garray,harray,iarray,jarray,karray,larray,marray,narray,oarray,parray,qarray,rarray,sarray,tarray,uarray,varray,warray,xarray,yarray,zarray};
   int match = 1;
-  for(int i = 0; i<4; i++){
-    if(DAD[i] != aarray[i]){
-      match=0;
+  for(int i =0; i<26; i++){
+    match = 1;
+    for(int j = 0; j<4;j++){
+      if(DAD[j] != allLetters[i][j]){
+        match = 0;
+        break;
+      }
     }
-  }
-  if(match == 1){
-    lcd.print("a");
-    for(int i =0; i<4;i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
+    if(match == 1){
+        printLetter(i);
+       getMilk();
     return;
-  }
 
-  match = 1;
-    for(int i = 0; i < 4; i++){
-    if(DAD[i] != barray[i]){
-      match = 0;
     }
   }
-  if(match == 1){
-    lcd.print("b");
-    for(int i = 0; i < 4; i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
-    return;
-  }
-
-  match = 1; // Reset match for next check
-  for(int i = 0; i < 4; i++){
-    if(DAD[i] != carray[i]){
-      match = 0;
-    }
-  }
-  if(match == 1){
-    lcd.print("c");
-    for(int i = 0; i < 4; i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
-    return;
-  }
-
-  match = 1;
-  for(int i = 0; i < 4; i++){
-    if(DAD[i] != darray[i]){
-      match = 0;
-    }
-  }
-  if(match == 1){
-    lcd.print("d");
-    for(int i = 0; i < 4; i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
-    return;
-  }
-
-  match = 1;
-  for(int i = 0; i < 4; i++){
-    if(DAD[i] != earray[i]){
-      match = 0;
-    }
-  }
-  if(match == 1){
-    lcd.print("e");
-    for(int i = 0; i < 4; i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
-    return;
-  }
-
-  match = 1;
-  for(int i = 0; i < 4; i++){
-    if(DAD[i] != farray[i]){
-      match = 0;
-    }
-  }
-  if(match == 1){
-    lcd.print("f");
-    for(int i = 0; i < 4; i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
-    return;
-  }
-
-  match = 1;
-  for(int i = 0; i < 4; i++){
-    if(DAD[i] != garray[i]){
-      match = 0;
-    }
-  }
-  if(match == 1){
-    lcd.print("g");
-    for(int i = 0; i < 4; i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
-    return;
-  }
-
-  match = 1;
-  for(int i = 0; i < 4; i++){
-    if(DAD[i] != harray[i]){
-      match = 0;
-    }
-  }
-  if(match == 1){
-    lcd.print("h");
-    for(int i = 0; i < 4; i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
-    return;
-  }
-
-  match = 1;
-  for(int i = 0; i < 4; i++){
-    if(DAD[i] != iarray[i]){
-      match = 0;
-    }
-  }
-  if(match == 1){
-    lcd.print("i");
-    for(int i = 0; i < 4; i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
-    return;
-  }
-
-  match = 1;
-  for(int i = 0; i < 4; i++){
-    if(DAD[i] != jarray[i]){
-      match = 0;
-    }
-  }
-  if(match == 1){
-    lcd.print("j");
-    for(int i = 0; i < 4; i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
-    return;
-  }
-
-  match = 1;
-  for(int i = 0; i < 4; i++){
-    if(DAD[i] != karray[i]){
-      match = 0;
-    }
-  }
-  if(match == 1){
-    lcd.print("k");
-    for(int i = 0; i < 4; i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
-    return;
-  }
-
-  match = 1;
-  for(int i = 0; i < 4; i++){
-    if(DAD[i] != larray[i]){
-      match = 0;
-    }
-  }
-  if(match == 1){
-    lcd.print("l");
-    for(int i = 0; i < 4; i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
-    return;
-  }
-
-  match = 1;
-  for(int i = 0; i < 4; i++){
-    if(DAD[i] != marray[i]){
-      match = 0;
-    }
-  }
-  if(match == 1){
-    lcd.print("m");
-    for(int i = 0; i < 4; i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
-    return;
-  }
-
-  match = 1;
-  for(int i = 0; i < 4; i++){
-    if(DAD[i] != narray[i]){
-      match = 0;
-    }
-  }
-  if(match == 1){
-    lcd.print("n");
-    for(int i = 0; i < 4; i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
-    return;
-  }
-
-  match = 1;
-  for(int i = 0; i < 4; i++){
-    if(DAD[i] != oarray[i]){
-      match = 0;
-    }
-  }
-  if(match == 1){
-    lcd.print("o");
-    for(int i = 0; i < 4; i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
-    return;
-  }
-
-  match = 1;
-  for(int i = 0; i < 4; i++){
-    if(DAD[i] != parray[i]){
-      match = 0;
-    }
-  }
-  if(match == 1){
-    lcd.print("p");
-    for(int i = 0; i < 4; i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
-    return;
-  }
-
-  match = 1;
-  for(int i = 0; i < 4; i++){
-    if(DAD[i] != qarray[i]){
-      match = 0;
-    }
-  }
-  if(match == 1){
-    lcd.print("q");
-    for(int i = 0; i < 4; i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
-    return;
-  }
-
-  match = 1;
-  for(int i = 0; i < 4; i++){
-    if(DAD[i] != rarray[i]){
-      match = 0;
-    }
-  }
-  if(match == 1){
-    lcd.print("r");
-    for(int i = 0; i < 4; i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
-    return;
-  }
-   match = 1;
-  for(int i = 0; i < 4; i++){
-    if(DAD[i] != sarray[i]){
-      match = 0;
-    }
-  }
-  if(match == 1){
-    lcd.print("s");
-    for(int i = 0; i < 4; i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
-    return;
-  }
-
-  match = 1;
-  for(int i = 0; i < 4; i++){
-    if(DAD[i] != tarray[i]){
-      match = 0;
-    }
-  }
-  if(match == 1){
-    lcd.print("t");
-    for(int i = 0; i < 4; i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
-    return;
-  }
-
-  match = 1;
-  for(int i = 0; i < 4; i++){
-    if(DAD[i] != uarray[i]){
-      match = 0;
-    }
-  }
-  if(match == 1){
-    lcd.print("u");
-    for(int i = 0; i < 4; i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
-    return;
-  }
-
-  match = 1;
-  for(int i = 0; i < 4; i++){
-    if(DAD[i] != varray[i]){
-      match = 0;
-    }
-  }
-  if(match == 1){
-    lcd.print("v");
-    for(int i = 0; i < 4; i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
-    return;
-  }
-
-  match = 1;
-  for(int i = 0; i < 4; i++){
-    if(DAD[i] != warray[i]){
-      match = 0;
-    }
-  }
-  if(match == 1){
-    lcd.print("w");
-    for(int i = 0; i < 4; i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
-    return;
-  }
-
-  match = 1;
-  for(int i = 0; i < 4; i++){
-    if(DAD[i] != xarray[i]){
-      match = 0;
-    }
-  }
-  if(match == 1){
-    lcd.print("x");
-    for(int i = 0; i < 4; i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
-    return;
-  }
-
-  match = 1;
-  for(int i = 0; i < 4; i++){
-    if(DAD[i] != yarray[i]){
-      match = 0;
-    }
-  }
-  if(match == 1){
-    lcd.print("y");
-    for(int i = 0; i < 4; i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
-    return;
-  }
-
-  match = 1;
-  for(int i = 0; i < 4; i++){
-    if(DAD[i] != zarray[i]){
-      match = 0;
-    }
-  }
-  if(match == 1){
-    lcd.print("z");
-    for(int i = 0; i < 4; i++){
-      DAD[i] = 0;
-    }
-    DADindex = 0;
-    return;
-  }
-
 }
