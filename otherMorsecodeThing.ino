@@ -1,3 +1,4 @@
+
  #include <LiquidCrystal.h>
 
 /*1H = dot
@@ -86,6 +87,7 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   //lcd.setCursor(0,0);
+  displayDAD();
   buttonPushed = digitalRead(buttonPin);
   if (buttonPushed == HIGH){
     highC++;
@@ -137,6 +139,7 @@ void loop() {
         lcd.clear(); 
         lettersP =0; 
         getMilk();
+        
             }
      
       
@@ -170,6 +173,9 @@ void getMilk(){
 
 void displayDAD(){
   lcd.setCursor(0,1);
+  for(int i = 0;i <4; i++){
+    lcd.print(DAD[i]);
+  }
   
 }
 void printLetter(int num){
