@@ -1,4 +1,5 @@
 
+
  #include <LiquidCrystal.h>
 
 /*1H = dot
@@ -174,8 +175,13 @@ void getMilk(){
 void displayDAD(){
   lcd.setCursor(0,1);
   for(int i = 0;i <4; i++){
-    lcd.print(DAD[i]);
+    switch (DAD[i]){
+      case 0: lcd.print(" ");break;
+      case 1: lcd.print(".");break;
+      case 2: lcd.print("_");break;
+    }
   }
+  lcd.setCursor(lettersP,0);
   
 }
 void printLetter(int num){
